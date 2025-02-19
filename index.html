@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF Converter</title>
+    <link rel="icon" type="image/x-icon" href="./assets/ico/Avt.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Quicksand', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <meta name="author" content="Tèo Sushi">
+    <meta property="og:author" content="Tèo Sushi">
+    <meta name="contact" content="teosushi1014@gmail.com">
+    <meta name="github" content="https://github.com/TeoSushi1014">
+</head>
+<body class="min-h-screen font-sans transition-all duration-300">
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-end mb-4 space-x-4">
+            <button id="langToggle" class="nav-button rounded-xl">
+                <span class="font-medium">EN</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+                </svg>
+            </button>
+            <button id="themeToggle" class="nav-button rounded-xl">
+                <svg class="w-6 h-6 dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+                <svg class="w-6 h-6 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <h1 class="page-title font-display bg-clip-text text-transparent transition-all" data-lang="title">
+            Image to PDF Converter
+        </h1>
+        
+        <div class="glass rounded-2xl shadow-2xl p-8 max-w-2xl mx-auto backdrop-blur-xl border-t border-l border-white/50 dark:border-white/5 transition-all duration-300">
+            <form id="uploadForm" class="space-y-8">
+                <div class="upload-area flex flex-col items-center p-8 rounded-lg cursor-pointer transition-all duration-300">
+                    <input type="file" id="imageInput" multiple accept="image/*" class="hidden" />
+                    <label for="imageInput" class="text-center cursor-pointer group transition-all">
+                        <svg class="w-16 h-16 mb-4 mx-auto text-sky-400 dark:text-sky-300 group-hover:text-pink-400 dark:group-hover:text-pink-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <span class="text-lg text-primary group-hover:text-sky-500 dark:group-hover:text-sky-300 transition-all font-display" data-lang="dropText">
+                            Choose Images or Drop Here
+                        </span>
+                    </label>
+                </div>
+
+                <div class="flex justify-center space-x-8">
+                    <label class="inline-flex items-center group cursor-pointer transition-all">
+                        <input type="radio" name="orientation" value="portrait" checked class="form-radio">
+                        <span class="ml-2 text-primary group-hover:text-sky-500 dark:group-hover:text-sky-300 transition-all font-display" data-lang="portrait">Portrait</span>
+                    </label>
+                    <label class="inline-flex items-center group cursor-pointer transition-all">
+                        <input type="radio" name="orientation" value="landscape" class="form-radio">
+                        <span class="ml-2 text-primary group-hover:text-sky-500 dark:group-hover:text-sky-300 transition-all font-display" data-lang="landscape">Landscape</span>
+                    </label>
+                </div>
+
+                <div class="flex justify-center space-x-4">
+                    <button type="button" id="convertSingle" class="btn-primary px-8 py-3 rounded-xl text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300" data-lang="convertSingle">
+                        Convert Each Image
+                    </button>
+                    <button type="button" id="convertAll" class="btn-primary px-8 py-3 rounded-xl text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300" data-lang="convertAll">
+                        Merge All Images
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="preview" class="preview-grid mt-12 pb-8">
+            <!-- Preview items will be added here -->
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
