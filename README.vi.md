@@ -75,7 +75,7 @@ Phân phối dưới Giấy phép MIT. Xem `LICENSE` để biết thêm thông t
 ## Tác Giả
 
 - **Tèo Sushi**
-- Facebook: [boboiboy.gala.7](https://facebook.com/boboiboy.gala.7)
+- Facebook: [Hoàng Việt Quang](https://facebook.com/boboiboy.gala.7)
 - Email: teosushi1014@gmail.com
 - GitHub: [TeoSushi1014](https://github.com/TeoSushi1014)
 
